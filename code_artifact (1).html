@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情侣情绪急救站 · 哄哄与道歉指南 🩹💕</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                        cute: ['"ZCOOL KuaiLe"', 'cursive', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            transition: background 0.5s ease;
+            min-height: 100vh;
+        }
+        /* 模式一：生气求哄背景（蜜桃粉紫渐变） */
+        body.mode-angry {
+            background: linear-gradient(135deg, #fff1f2 0%, #fae8ff 50%, #ffe4e6 100%);
+        }
+        /* 模式二：诚恳道歉背景（温柔晴空暖阳渐变） */
+        body.mode-apology {
+            background: linear-gradient(135deg, #eff6ff 0%, #fefce8 50%, #e0f2fe 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+        @keyframes pulse-gentle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .animate-gentle {
+            display: inline-block;
+            animation: pulse-gentle 2s infinite;
+        }
+    </style>
+</head>
+<body class="mode-angry text-gray-700 antialiased pb-20">
+
+    <!-- 顶部标题与双模式切换器 -->
+    <header class="pt-8 pb-6 px-4 text-center">
+        <div class="max-w-2xl mx-auto">
+            <div id="badge-pill" class="inline-flex items-center justify-center px-4 py-1.5 mb-3 rounded-full bg-white/90 text-rose-500 text-sm font-medium shadow-sm border border-rose-100 transition-colors">
+                <span class="animate-gentle mr-1.5">🩹</span> 情侣情绪急救站 · 拒绝冷战隔夜仇
+            </div>
+            <h1 id="main-title" class="text-3xl sm:text-4xl font-cute text-rose-600 tracking-wide drop-shadow-sm transition-colors">
+                哼！本宝宝生气了，快来哄我！
+            </h1>
+            <p id="main-subtitle" class="mt-2 text-sm sm:text-base text-gray-500">
+                有情绪不憋着，直接发“哄人说明书”给对方，给彼此一个台阶下 💕
+            </p>
+
+            <!-- 双模式切换胶囊按钮 -->
+            <div class="mt-6 inline-flex p-1.5 rounded-full bg-white/80 shadow-md border border-gray-100 backdrop-blur-md">
+                <button id="tab-angry" onclick="switchMode('angry')" class="px-5 py-2.5 rounded-full text-sm font-bold transition-all flex items-center gap-2 bg-rose-500 text-white shadow-sm cursor-pointer">
+                    <span>😤</span>
+                    <span>我生气了（求哄指南）</span>
+                </button>
+                <button id="tab-apology" onclick="switchMode('apology')" class="px-5 py-2.5 rounded-full text-sm font-bold transition-all flex items-center gap-2 text-gray-500 hover:text-sky-600 cursor-pointer">
+                    <span>🥺</span>
+                    <span>我错啦（诚恳道歉信）</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="max-w-3xl mx-auto px-4 space-y-6">
+
+        <!-- ================= 模式 A：我生气了（告知如何哄） ================= -->
+        <div id="section-angry" class="space-y-6">
+            <!-- 步骤 1：当前生气指数与原因 -->
+            <section class="glass-card rounded-3xl p-5 sm:p-6 shadow-lg shadow-rose-100/50">
+                <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2 mb-4">
+                    <span class="w-7 h-7 rounded-full bg-rose-500 text-white flex items-center justify-center text-sm">1</span>
+                    当前情绪警报等级
+                </h2>
+
+                <!-- 情绪等级滑块/卡片 -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-5" id="angry-levels">
+                    <!-- JS 渲染 -->
+                </div>
+
+                <!-- 生气的小原因（多选） -->
+                <label class="block text-xs font-bold text-gray-500 mb-2">为什么不开心啦？（可多选）：</label>
+                <div class="flex flex-wrap gap-2 mb-4" id="angry-reasons">
+                    <!-- JS 渲染 -->
+                </div>
+
+                <textarea id="angry-detail" rows="2" placeholder="想补充的具体委屈（例如：刚才说话太凶了、等了你好久没回消息...）"
+                    class="w-full p-3.5 rounded-2xl bg-white/90 border border-rose-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400 placeholder-gray-400 resize-none"></textarea>
+            </section>
+
+            <!-- 步骤 2：专属哄人秘籍（需要对方怎么做） -->
+            <section class="glass-card rounded-3xl p-5 sm:p-6 shadow-lg shadow-rose-100/50">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full bg-rose-500 text-white flex items-center justify-center text-sm">2</span>
+                        指定“哄好秘籍”（多选）
+                    </h2>
+                    <span class="text-xs text-rose-500 bg-rose-50 px-2.5 py-1 rounded-full font-medium">照做立马消气 ✨</span>
+                </div>
+                <p class="text-xs text-gray-400 mb-4">直接告诉笨蛋对象该怎么哄你，省去猜来猜去的烦恼！</p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="coax-methods">
+                    <!-- JS 渲染 -->
+                </div>
+
+                <!-- 自定义哄人要求 -->
+                <div class="mt-4 pt-3 border-t border-rose-100 flex gap-2">
+                    <input type="text" id="custom-coax-input" placeholder="添加其他专属哄人要求（如：请我吃顿火锅）..." 
+                        class="flex-1 px-4 py-2 rounded-2xl bg-white/90 border border-rose-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400"
+                        onkeypress="if(event.key === 'Enter') addCustomCoax()">
+                    <button onclick="addCustomCoax()" class="px-4 py-2 rounded-2xl bg-rose-100 hover:bg-rose-200 text-rose-600 font-medium text-sm transition cursor-pointer">
+                        + 添加
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= 模式 B：我错啦（诚恳道歉信） ================= -->
+        <div id="section-apology" class="space-y-6 hidden">
+            <!-- 步骤 1：认错态度与反思 -->
+            <section class="glass-card rounded-3xl p-5 sm:p-6 shadow-lg shadow-sky-100/50">
+                <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2 mb-4">
+                    <span class="w-7 h-7 rounded-full bg-sky-500 text-white flex items-center justify-center text-sm">1</span>
+                    选择你的认错姿势与态度
+                </h2>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-5" id="apology-stances">
+                    <!-- JS 渲染 -->
+                </div>
+
+                <label class="block text-xs font-bold text-gray-500 mb-2">深刻反思我的错误（可多选）：</label>
+                <div class="flex flex-wrap gap-2 mb-4" id="apology-reasons">
+                    <!-- JS 渲染 -->
+                </div>
+
+                <textarea id="apology-detail" rows="3" placeholder="写下你的真心话和保证书（例如：宝贝我错了，我不该忽略你的感受，以后一定第一时间哄你...）"
+                    class="w-full p-3.5 rounded-2xl bg-white/90 border border-sky-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 placeholder-gray-400 resize-none"></textarea>
+            </section>
+
+            <!-- 步骤 2：诚意补偿方案 -->
+            <section class="glass-card rounded-3xl p-5 sm:p-6 shadow-lg shadow-sky-100/50">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full bg-sky-500 text-white flex items-center justify-center text-sm">2</span>
+                        主动献上“赎罪补偿”（多选）
+                    </h2>
+                    <span class="text-xs text-sky-600 bg-sky-50 px-2.5 py-1 rounded-full font-medium">态度决定一切 🙇‍♂️</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="compensation-methods">
+                    <!-- JS 渲染 -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= 公共区域：步骤 3 发送预览与 Gmail/微信发送 ================= -->
+        <section id="send-section" class="glass-card rounded-3xl p-5 sm:p-6 shadow-lg shadow-rose-100/50 transition-all">
+            <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2 mb-4">
+                <span id="step3-badge" class="w-7 h-7 rounded-full bg-rose-500 text-white flex items-center justify-center text-sm transition-colors">3</span>
+                发送给对方
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">对他的爱称（收件人）</label>
+                    <input type="text" id="partner-name" value="亲爱的" placeholder="例如：宝贝、老公、老婆"
+                        oninput="updateLivePreview()"
+                        class="w-full px-4 py-2.5 rounded-2xl bg-white/90 border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">对方的 Gmail 邮箱地址 <span class="text-rose-400">*</span></label>
+                    <input type="email" id="partner-email" placeholder="example@gmail.com"
+                        class="w-full px-4 py-2.5 rounded-2xl bg-white/90 border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400">
+                </div>
+            </div>
+
+            <!-- 实时生成信件预览框 -->
+            <div id="preview-box" class="bg-rose-50/70 rounded-2xl p-4 border border-rose-100 mb-5 transition-colors">
+                <div class="flex items-center justify-between mb-2">
+                    <span id="preview-label" class="text-xs font-bold text-rose-600 flex items-center gap-1.5">
+                        <i class="fa-regular fa-envelope-open"></i> 实时信件内容预览
+                    </span>
+                    <button onclick="resetAll()" class="text-xs text-gray-400 hover:text-gray-600 underline cursor-pointer">重置选项</button>
+                </div>
+                <pre id="live-preview-text" class="whitespace-pre-wrap font-sans text-xs sm:text-sm text-gray-700 leading-relaxed bg-white/80 p-3.5 rounded-xl border border-white max-h-56 overflow-y-auto"></pre>
+            </div>
+
+            <!-- 发送按钮组 -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button id="gmail-btn" onclick="sendViaGmail()" class="flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-base shadow-lg shadow-rose-300/60 flex items-center justify-center gap-2.5 transition transform active:scale-98 cursor-pointer">
+                    <i class="fa-brands fa-google text-lg"></i>
+                    <span>打开 Gmail 发送</span>
+                </button>
+                <button id="copy-btn" onclick="copyMessageText()" class="py-3.5 px-5 rounded-2xl bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 font-medium text-sm shadow-sm flex items-center justify-center gap-2 transition active:scale-98 cursor-pointer">
+                    <i class="fa-brands fa-weixin text-lg text-emerald-500"></i>
+                    <span>一键复制发微信</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 提示消息 Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform translate-y-4">
+        <div class="bg-gray-800/95 text-white px-5 py-3 rounded-full shadow-xl text-sm font-medium flex items-center gap-2 backdrop-blur-md">
+            <span id="toast-icon">✨</span>
+            <span id="toast-msg">提示信息</span>
+        </div>
+    </div>
+
+    <script>
+        // ================= 数据配置区 =================
+        const angryLevelsData = [
+            { id: 'lv1', emoji: '😒', title: '有点小委屈', desc: '很好哄，抱一下就好' },
+            { id: 'lv2', emoji: '😤', title: '中度生气中', desc: '需要认真态度+小零食' },
+            { id: 'lv3', emoji: '🌋', title: '火山爆发前夕', desc: '警报拉响！速来救驾' },
+            { id: 'lv4', emoji: '🧊', title: '冷漠河豚模式', desc: '鼓成球了，快戳我消气' }
+        ];
+
+        const angryReasonsData = [
+            '消息回复太慢了', '说话语气太凶', '忽略了我的感受',
+            '没有及时夸夸我', '只顾着打游戏/忙工作', '忘记答应我的小事', '单纯想让你哄哄我'
+        ];
+
+        let coaxMethodsData = [
+            { id: 'c1', emoji: '🤗', name: '一个超级大抱抱' },
+            { id: 'c2', emoji: '🧋', name: '立马点一杯奶茶' },
+            { id: 'c3', emoji: '😘', name: '亲亲十下才能好' },
+            { id: 'c4', emoji: '🍽️', name: '请吃一顿大餐' },
+            { id: 'c5', emoji: '💬', name: '发100字小作文夸我' },
+            { id: 'c6', emoji: '💆', name: '全套捏肩捶背服务' },
+            { id: 'c7', emoji: '🧧', name: '发个甜蜜小红包' },
+            { id: 'c8', emoji: '📞', name: '立刻打电话听你声音' },
+            { id: 'c9', emoji: '🙇', name: '承认“都是我的错”' }
+        ];
+
+        const apologyStancesData = [
+            { id: 'a1', emoji: '🙇‍♂️', title: '搓衣板就位', desc: '深刻反省，任凭处置' },
+            { id: 'a2', emoji: '🥺', title: '可怜巴巴求原谅', desc: '我知道错了，别不理我' },
+            { id: 'a3', emoji: '🐶', title: '小狗摇尾巴认错', desc: '以后再也不敢啦汪！' },
+            { id: 'a4', emoji: '✍️', title: '严肃检讨书模式', desc: '痛改前非，绝不再犯' }
+        ];
+
+        const apologyReasonsData = [
+            '我不该惹你生气', '我刚才说话没过脑子', '没有第一时间照顾你的情绪',
+            '让你久等/让你委屈了', '我太粗心大意了', '不管怎样错的肯定是我'
+        ];
+
+        const compensationMethodsData = [
+            { id: 'p1', emoji: '🧋', name: '外卖奶茶甜点已备好' },
+            { id: 'p2', emoji: '🧹', name: '承包本周全部家务' },
+            { id: 'p3', emoji: '🍜', name: '随时随地当专属外卖员' },
+            { id: 'p4', emoji: '🛍️', name: '清空购物车小愿望' },
+            { id: 'p5', emoji: '🤗', name: '随叫随到人肉抱枕' },
+            { id: 'p6', emoji: '🎟️', name: '赠送“无条件原谅券”一张' }
+        ];
+
+        // ================= 状态管理 =================
+        let currentMode = 'angry'; // 'angry' | 'apology'
+        
+        // 生气模式状态
+        let selectedAngryLevel = angryLevelsData[0];
+        let selectedAngryReasons = new Set(['忽略了我的感受']);
+        let selectedCoaxIds = new Set(['c1', 'c2']);
+
+        // 道歉模式状态
+        let selectedApologyStance = apologyStancesData[0];
+        let selectedApologyReasons = new Set(['我不该惹你生气']);
+        let selectedCompensationIds = new Set(['p1', 'p6']);
+
+        // ================= 初始化 =================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAngrySection();
+            renderApologySection();
+            updateLivePreview();
+
+            // 监听输入框变化实时刷新预览
+            document.getElementById('angry-detail').addEventListener('input', updateLivePreview);
+            document.getElementById('apology-detail').addEventListener('input', updateLivePreview);
+        });
+
+        // ================= 模式切换逻辑 =================
+        function switchMode(mode) {
+            currentMode = mode;
+            const body = document.body;
+            const tabAngry = document.getElementById('tab-angry');
+            const tabApology = document.getElementById('tab-apology');
+            const secAngry = document.getElementById('section-angry');
+            const secApology = document.getElementById('section-apology');
+            
+            const badgePill = document.getElementById('badge-pill');
+            const mainTitle = document.getElementById('main-title');
+            const mainSubtitle = document.getElementById('main-subtitle');
+            const step3Badge = document.getElementById('step3-badge');
+            const previewBox = document.getElementById('preview-box');
+            const previewLabel = document.getElementById('preview-label');
+            const gmailBtn = document.getElementById('gmail-btn');
+            const copyBtn = document.getElementById('copy-btn');
+
+            if (mode === 'angry') {
+                body.className = 'mode-angry text-gray-700 antialiased pb-20';
+                tabAngry.className = 'px-5 py-2.5 rounded-full text-sm font-bold transition-all flex items-center gap-2 bg-rose-500 text-white shadow-sm cursor-pointer';
+                tabApology.className = 'px-5 py-2.5 rounded-full text-sm font-bold transition-all flex items-center gap-2 text-gray-500 hover:text-sky-600 cursor-pointer';
+                
+                secAngry.classList.remove('hidden');
+                secApology.classList.add('hidden');
+
+                badgePill.className = 'inline-flex items-center justify-center px-4 py-1.5 mb-3 rounded-full bg-white/90 text-rose-500 text-sm font-medium shadow-sm border border-rose-100';
+                mainTitle.textContent = '哼！本宝宝生气了，快来哄我！';
+                mainTitle.className = 'text-3xl sm:text-4xl font-cute text-rose-600 tracking-wide drop-shadow-sm';
+                mainSubtitle.textContent = '有情绪不憋着，直接发“哄人说明书”给对方，给彼此一个台阶下 💕';
+
+                step3Badge.className = 'w-7 h-7 rounded-full bg-rose-500 text-white flex items-center justify-center text-sm';
+                previewBox.className = 'bg-rose-50/70 rounded-2xl p-4 border border-rose-100 mb-5';
+                previewLabel.className = 'text-xs font-bold text-rose-600 flex items-center gap-1.5';
+                gmailBtn.className = 'flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-base shadow-lg shadow-rose-300/60 flex items-center justify-center gap-2.5 transition transform active:scale-98 cursor-pointer';
+                copyBtn.className = 'py-3.5 px-5 rounded-2xl bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 font-medium text-sm shadow-sm flex items-center justify-center gap-2 transition active:scale-98 cursor-pointer';
+            } else {
+                body.className = 'mode-apology text-gray-700 antialiased pb-20';
+                tabApology.className = 'px-5 py-2.5 rounded-full text-sm font-bold transition-all flex items-center gap-2 bg-sky-500 text-white shadow-sm cursor-pointer';
+                tabAngry.className = 'px-5 py-2.5 rounded-full text-sm font-bold transition-all flex items-center gap-2 text-gray-500 hover:text-rose-500 cursor-pointer';
+                
+                secApology.classList.remove('hidden');
+                secAngry.classList.add('hidden');
+
+                badgePill.className = 'inline-flex items-center justify-center px-4 py-1.5 mb-3 rounded-full bg-white/90 text-sky-600 text-sm font-medium shadow-sm border border-sky-100';
+                mainTitle.textContent = '宝贝我错了，请求你的原谅 🥺';
+                mainTitle.className = 'text-3xl sm:text-4xl font-cute text-sky-600 tracking-wide drop-shadow-sm';
+                mainSubtitle.textContent = '真诚是永远的必杀技，写一份诚意满满的道歉检讨书吧 💌';
+
+                step3Badge.className = 'w-7 h-7 rounded-full bg-sky-500 text-white flex items-center justify-center text-sm';
+                previewBox.className = 'bg-sky-50/70 rounded-2xl p-4 border border-sky-100 mb-5';
+                previewLabel.className = 'text-xs font-bold text-sky-600 flex items-center gap-1.5';
+                gmailBtn.className = 'flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white font-bold text-base shadow-lg shadow-sky-300/60 flex items-center justify-center gap-2.5 transition transform active:scale-98 cursor-pointer';
+                copyBtn.className = 'py-3.5 px-5 rounded-2xl bg-white hover:bg-sky-50 text-sky-600 border border-sky-200 font-medium text-sm shadow-sm flex items-center justify-center gap-2 transition active:scale-98 cursor-pointer';
+            }
+
+            updateLivePreview();
+        }
+
+        // ================= 渲染生气模式 =================
+        function renderAngrySection() {
+            // 1. 情绪等级
+            document.getElementById('angry-levels').innerHTML = angryLevelsData.map(lv => {
+                const active = selectedAngryLevel.id === lv.id;
+                return `
+                    <div onclick="selectAngryLevel('${lv.id}')" class="p-3 rounded-2xl border text-center cursor-pointer transition
+                        ${active ? 'bg-rose-50 border-rose-400 shadow-sm scale-[1.02]' : 'bg-white/80 border-gray-100 hover:border-rose-200'}">
+                        <div class="text-2xl mb-1">${lv.emoji}</div>
+                        <div class="text-xs font-bold ${active ? 'text-rose-600' : 'text-gray-700'}">${lv.title}</div>
+                        <div class="text-[10px] text-gray-400 mt-0.5">${lv.desc}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // 2. 生气原因标签
+            document.getElementById('angry-reasons').innerHTML = angryReasonsData.map(reason => {
+                const active = selectedAngryReasons.has(reason);
+                return `
+                    <button type="button" onclick="toggleSetItem(selectedAngryReasons, '${reason}', renderAngrySection)"
+                        class="px-3 py-1.5 rounded-full text-xs font-medium transition cursor-pointer
+                        ${active ? 'bg-rose-500 text-white shadow-xs' : 'bg-white text-gray-600 border border-rose-100 hover:bg-rose-50'}">
+                        ${active ? '✓ ' : ''}${reason}
+                    </button>
+                `;
+            }).join('');
+
+            // 3. 哄人方法
+            document.getElementById('coax-methods').innerHTML = coaxMethodsData.map(item => {
+                const active = selectedCoaxIds.has(item.id);
+                return `
+                    <div onclick="toggleSetItem(selectedCoaxIds, '${item.id}', renderAngrySection)"
+                        class="p-3 rounded-2xl border flex items-center gap-2.5 cursor-pointer transition select-none
+                        ${active ? 'bg-rose-50 border-rose-400 text-rose-700 font-bold shadow-xs' : 'bg-white/90 border-gray-100 text-gray-600 hover:border-rose-200'}">
+                        <span class="text-xl">${item.emoji}</span>
+                        <span class="text-xs sm:text-sm leading-tight">${item.name}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectAngryLevel(id) {
+            selectedAngryLevel = angryLevelsData.find(l => l.id === id);
+            renderAngrySection();
+            updateLivePreview();
+        }
+
+        function addCustomCoax() {
+            const input = document.getElementById('custom-coax-input');
+            const val = input.value.trim();
+            if (!val) {
+                showToast('请输入自定义哄人要求哦~', '🥺');
+                return;
+            }
+            const newId = 'c_' + Date.now();
+            coaxMethodsData.push({ id: newId, emoji: '💝', name: val });
+            selectedCoaxIds.add(newId);
+            input.value = '';
+            renderAngrySection();
+            updateLivePreview();
+            showToast('已添加到哄人秘籍中！', '✨');
+        }
+
+        // ================= 渲染道歉模式 =================
+        function renderApologySection() {
+            // 1. 认错态度
+            document.getElementById('apology-stances').innerHTML = apologyStancesData.map(st => {
+                const active = selectedApologyStance.id === st.id;
+                return `
+                    <div onclick="selectApologyStance('${st.id}')" class="p-3 rounded-2xl border text-center cursor-pointer transition
+                        ${active ? 'bg-sky-50 border-sky-400 shadow-sm scale-[1.02]' : 'bg-white/80 border-gray-100 hover:border-sky-200'}">
+                        <div class="text-2xl mb-1">${st.emoji}</div>
+                        <div class="text-xs font-bold ${active ? 'text-sky-600' : 'text-gray-700'}">${st.title}</div>
+                        <div class="text-[10px] text-gray-400 mt-0.5">${st.desc}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // 2. 反思错误标签
+            document.getElementById('apology-reasons').innerHTML = apologyReasonsData.map(reason => {
+                const active = selectedApologyReasons.has(reason);
+                return `
+                    <button type="button" onclick="toggleSetItem(selectedApologyReasons, '${reason}', renderApologySection)"
+                        class="px-3 py-1.5 rounded-full text-xs font-medium transition cursor-pointer
+                        ${active ? 'bg-sky-500 text-white shadow-xs' : 'bg-white text-gray-600 border border-sky-100 hover:bg-sky-50'}">
+                        ${active ? '✓ ' : ''}${reason}
+                    </button>
+                `;
+            }).join('');
+
+            // 3. 诚意补偿
+            document.getElementById('compensation-methods').innerHTML = compensationMethodsData.map(item => {
+                const active = selectedCompensationIds.has(item.id);
+                return `
+                    <div onclick="toggleSetItem(selectedCompensationIds, '${item.id}', renderApologySection)"
+                        class="p-3 rounded-2xl border flex items-center gap-2.5 cursor-pointer transition select-none
+                        ${active ? 'bg-sky-50 border-sky-400 text-sky-700 font-bold shadow-xs' : 'bg-white/90 border-gray-100 text-gray-600 hover:border-sky-200'}">
+                        <span class="text-xl">${item.emoji}</span>
+                        <span class="text-xs sm:text-sm leading-tight">${item.name}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectApologyStance(id) {
+            selectedApologyStance = apologyStancesData.find(s => s.id === id);
+            renderApologySection();
+            updateLivePreview();
+        }
+
+        // 通用 Set 切换方法
+        function toggleSetItem(setObj, value, renderFn) {
+            if (setObj.has(value)) {
+                setObj.delete(value);
+            } else {
+                setObj.add(value);
+            }
+            renderFn();
+            updateLivePreview();
+        }
+
+        // ================= 生成信件文本 =================
+        function generateLetterContent() {
+            const partnerName = document.getElementById('partner-name').value.trim() || '亲爱的';
+
+            if (currentMode === 'angry') {
+                const reasons = Array.from(selectedAngryReasons);
+                const reasonText = reasons.length > 0 ? reasons.join('、') : '有一点点小情绪';
+                const detail = document.getElementById('angry-detail').value.trim();
+                const coaxList = coaxMethodsData
+                    .filter(c => selectedCoaxIds.has(c.id))
+                    .map((c, i) => `${i + 1}. ${c.emoji} ${c.name}`)
+                    .join('\n') || '只要你认真态度哄哄我就可以啦~';
+
+                const subject = `🚨 【情绪警报】${partnerName}，本宝宝现在生气了！附《哄人说明书》`;
+                const body = 
+`致 ${partnerName}：
+
+你的专属小可爱向你发来了一份【情绪状态通知书】😤
+
+🌡️ 【当前生气等级】：${selectedAngryLevel.emoji} ${selectedAngryLevel.title}（${selectedAngryLevel.desc}）
+💭 【不开心的原因】：${reasonText}${detail ? `\n📝 【补充小委屈】：${detail}` : ''}
+
+📖 【专属哄好秘籍（请照单全收）】：
+${coaxList}
+
+温馨提示：现在来哄我只需要 100% 的爱意，拖延一分钟利息翻倍哦！哼！💕`;
+
+                return { subject, body };
+            } else {
+                const reasons = Array.from(selectedApologyReasons);
+                const reasonText = reasons.length > 0 ? reasons.join('、') : '惹你不开心了';
+                const detail = document.getElementById('apology-detail').value.trim();
+                const compList = compensationMethodsData
+                    .filter(p => selectedCompensationIds.has(p.id))
+                    .map((p, i) => `${i + 1}. ${p.emoji} ${p.name}`)
+                    .join('\n') || '随你处置，只求宝贝消气！';
+
+                const subject = `💌 【诚恳认错书】${partnerName}，我真的知道错了，求原谅 🥺`;
+                const body = 
+`最爱的 ${partnerName}：
+
+见信如面！我怀着无比愧疚与真诚的心情，向你递交这份【正式道歉检讨书】🙇‍♂️
+
+🧎 【当前认错姿势】：${selectedApologyStance.emoji} ${selectedApologyStance.title}（${selectedApologyStance.desc}）
+🔍 【深刻反思错误】：${reasonText}${detail ? `\n💬 【我的真心话】：${detail}` : ''}
+
+🎁 【诚意补偿方案（即刻生效）】：
+${compList}
+
+千错万错都是我的错，最喜欢你啦！别生气了好不好，给我一个抱抱你的机会吧 🥺❤️`;
+
+                return { subject, body };
+            }
+        }
+
+        function updateLivePreview() {
+            const { body } = generateLetterContent();
+            document.getElementById('live-preview-text').textContent = body;
+        }
+
+        function resetAll() {
+            document.getElementById('angry-detail').value = '';
+            document.getElementById('apology-detail').value = '';
+            selectedAngryReasons.clear();
+            selectedCoaxIds.clear();
+            selectedApologyReasons.clear();
+            selectedCompensationIds.clear();
+            renderAngrySection();
+            renderApologySection();
+            updateLivePreview();
+            showToast('已重置所有选项', '🔄');
+        }
+
+        // ================= 发送与复制逻辑 =================
+        function sendViaGmail() {
+            const emailInput = document.getElementById('partner-email').value.trim();
+            if (!emailInput) {
+                showToast('请先填写对方的 Gmail 邮箱地址哦~', '📧');
+                document.getElementById('partner-email').focus();
+                return;
+            }
+
+            const { subject, body } = generateLetterContent();
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailInput)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            showToast('正在为你打开 Gmail 发送页面...', '🚀');
+            window.open(gmailUrl, '_blank');
+        }
+
+        function copyMessageText() {
+            const { subject, body } = generateLetterContent();
+            const fullText = `${subject}\n\n${body}`;
+
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = fullText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('消息已复制！快去微信粘贴发送吧 💬', '✅');
+            } catch (err) {
+                showToast('复制失败，请手动复制预览框内容', '❌');
+            }
+            document.body.removeChild(tempTextArea);
+        }
+
+        let toastTimeout;
+        function showToast(message, icon = '✨') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            document.getElementById('toast-icon').textContent = icon;
+
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 2800);
+        }
+    </script>
+</body>
+</html>
